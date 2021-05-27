@@ -1,0 +1,37 @@
+<html>
+
+    <head>
+
+        {% load static %}
+
+    </head>
+
+    <h1 style="text-align: center;">GDD</h1>
+
+    <div style="text-align: center;">
+
+        <img src="{% static 'locations.png' %}">
+
+    </div>
+
+    <br>
+
+    </br>
+
+    <br>
+    
+    </br>
+
+    <div style="text-align: center;">
+        <form method="POST" action="/" style="display: block;">
+            {% csrf_token %}
+            {{form}}
+            <button type="submit" name="Create tracker"> Submit </button>
+        </form>
+    </div>
+
+    <div style="text-align: center;">
+        <a href="/Trackers/" style="text-align: center;">see trackers</a>
+    </div>
+
+</html>

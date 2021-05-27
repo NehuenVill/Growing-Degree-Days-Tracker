@@ -1,0 +1,53 @@
+{% load custom_tags %}
+
+<h1 style="text-align: center;">Trackers</h1>
+
+{% for i in trackers %}
+<div style="text-align: center;">
+    <div style="text-align: center;">
+        <hr style="align-content: center; width: 75%"></hr>
+    </div>
+    <ul style="list-style-type: none; display: inline-block;">
+        <li>Start date: {{i.Start_date}}</li>
+        <li>Weather station: {{i.Nearest_loc}}</li>
+        <li>Pest: {{i.Pest}}</li>
+        <li>Be careful: {{i.Warning}}</li>
+    </ul>
+
+    <div id="container" style="width: 75%; margin-left: 12.5%; margin-right: 12.5%;">
+        <canvas id={{forloop.counter0}}></canvas>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script>
+        var ctx = document.getElementById({{forloop.counter0}});
+
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {{DATES_and_GDDS|get_dates:forloop.counter0|safe}},
+                datasets: [{ 
+                    data: {{DATES_and_GDDS|get_GDD:forloop.counter0|safe}},
+                    label: "GDD",
+                    borderColor: "#3e95cd",
+                    fill: false
+                }
+                ]
+            }, 
+            options: {
+                title: {
+                display: true,
+                text: 'Acumulated GDDs over time'
+                },
+                responsive: true
+            }
+            });
+        
+    </script>
+    
+    <div style="text-align: center;">
+        <hr style="align-content: center; width: 75%"></hr>
+    </div>
+</div>
+
+{% endfor %}
